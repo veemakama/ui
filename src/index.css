@@ -1,0 +1,13 @@
+/**
+ * sorokit-ui global styles
+ *
+ * Import order matters:
+ * 1. theme.css  — all design tokens + base styles (Notion system)
+ * 2. tailwindcss — utility classes (must come after theme so tokens are available)
+ *
+ * Do NOT add component styles here.
+ * All component-level styles live in their own files or via Tailwind utilities.
+ */
+
+@import "./theme.css";
+@import "tailwindcss";
