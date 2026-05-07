@@ -1,6 +1,14 @@
 import { cn } from "@/lib/utils";
 import { useSorokit } from "@/context/SorokitProvider";
 import { AccountCardCompact } from "@/components/AccountCard";
+import { HugeiconsIcon } from "@hugeicons/react";
+import {
+  Wallet01Icon,
+  User02Icon,
+  ArrowDataTransferHorizontalIcon,
+  CodeIcon,
+  Globe02Icon,
+} from "@hugeicons/core-free-icons";
 
 export type NavSection =
   | "wallet"
@@ -9,118 +17,16 @@ export type NavSection =
   | "soroban"
   | "network";
 
-const NAV: { id: NavSection; label: string; icon: React.ReactNode }[] = [
-  {
-    id: "wallet",
-    label: "Wallet",
-    icon: (
-      <svg width="15" height="15" viewBox="0 0 14 14" fill="none">
-        <rect
-          x="1"
-          y="3.5"
-          width="12"
-          height="8"
-          rx="1.5"
-          stroke="currentColor"
-          strokeWidth="1.3"
-        />
-        <path d="M1 6.5H13" stroke="currentColor" strokeWidth="1.3" />
-        <circle cx="10" cy="9" r="0.8" fill="currentColor" />
-      </svg>
-    ),
-  },
-  {
-    id: "account",
-    label: "Account",
-    icon: (
-      <svg width="15" height="15" viewBox="0 0 14 14" fill="none">
-        <circle cx="7" cy="5" r="2.2" stroke="currentColor" strokeWidth="1.3" />
-        <path
-          d="M2 12C2 9.79 4.24 8 7 8C9.76 8 12 9.79 12 12"
-          stroke="currentColor"
-          strokeWidth="1.3"
-          strokeLinecap="round"
-        />
-      </svg>
-    ),
-  },
+const NAV: { id: NavSection; label: string; icon: object }[] = [
+  { id: "wallet", label: "Wallet", icon: Wallet01Icon },
+  { id: "account", label: "Account", icon: User02Icon },
   {
     id: "transactions",
     label: "Transactions",
-    icon: (
-      <svg width="15" height="15" viewBox="0 0 14 14" fill="none">
-        <path
-          d="M2 4.5H12M9 2L12 4.5L9 7"
-          stroke="currentColor"
-          strokeWidth="1.3"
-          strokeLinecap="round"
-          strokeLinejoin="round"
-        />
-        <path
-          d="M12 9.5H2M5 7L2 9.5L5 12"
-          stroke="currentColor"
-          strokeWidth="1.3"
-          strokeLinecap="round"
-          strokeLinejoin="round"
-        />
-      </svg>
-    ),
+    icon: ArrowDataTransferHorizontalIcon,
   },
-  {
-    id: "soroban",
-    label: "Soroban",
-    icon: (
-      <svg width="15" height="15" viewBox="0 0 14 14" fill="none">
-        <path
-          d="M4.5 2.5L2 7L4.5 11.5"
-          stroke="currentColor"
-          strokeWidth="1.3"
-          strokeLinecap="round"
-          strokeLinejoin="round"
-        />
-        <path
-          d="M9.5 2.5L12 7L9.5 11.5"
-          stroke="currentColor"
-          strokeWidth="1.3"
-          strokeLinecap="round"
-          strokeLinejoin="round"
-        />
-        <path
-          d="M8.5 2L5.5 12"
-          stroke="currentColor"
-          strokeWidth="1.3"
-          strokeLinecap="round"
-        />
-      </svg>
-    ),
-  },
-  {
-    id: "network",
-    label: "Network",
-    icon: (
-      <svg width="15" height="15" viewBox="0 0 14 14" fill="none">
-        <circle cx="7" cy="7" r="5" stroke="currentColor" strokeWidth="1.3" />
-        <path
-          d="M7 2C7 2 9 4.5 9 7C9 9.5 7 12 7 12"
-          stroke="currentColor"
-          strokeWidth="1.3"
-          strokeLinecap="round"
-        />
-        <path
-          d="M7 2C7 2 5 4.5 5 7C5 9.5 7 12 7 12"
-          stroke="currentColor"
-          strokeWidth="1.3"
-          strokeLinecap="round"
-        />
-        <path
-          d="M2 7H12"
-          stroke="currentColor"
-          strokeWidth="1.3"
-          strokeLinecap="round"
-        />
-      </svg>
-    ),
-  },
+  { id: "soroban", label: "Soroban", icon: CodeIcon },
+  { id: "network", label: "Network", icon: Globe02Icon },
 ];
 
 interface SidebarProps {
@@ -188,7 +94,7 @@ export function Sidebar({ active, onNavigate, open, onClose }: SidebarProps) {
         {/* Nav */}
         <nav className="flex-1 overflow-y-auto py-3 px-3">
           <p className="px-2 mb-2 mt-1 text-[10px] font-semibold uppercase tracking-[0.1em] text-ink-4">
-            Menu
+            Navigation
           </p>
           <div className="flex flex-col gap-0.5">
             {NAV.map((item) => (
@@ -196,8 +102,8 @@ export function Sidebar({ active, onNavigate, open, onClose }: SidebarProps) {
                 key={item.id}
                 onClick={() => handleNav(item.id)}
                 className={cn(
-                  "relative w-full flex items-center gap-2.5 px-3 py-2 rounded-lg text-left transition-all cursor-pointer overflow-hidden",
-                  "text-[13px] focus-visible:outline-none mb-1",
+                  "relative w-full flex items-center gap-3 px-3 py-2.5 rounded-lg text-left transition-all cursor-pointer overflow-hidden",
+                  "text-[13px] focus-visible:outline-none mb-0.5",
                   active === item.id
                     ? "bg-surface-3 text-ink font-medium border border-line-2"
                     : "text-ink-3 hover:bg-surface-2 hover:text-ink-2 border border-transparent",
@@ -207,14 +113,16 @@ export function Sidebar({ active, onNavigate, open, onClose }: SidebarProps) {
                 {active === item.id && (
                   <span className="absolute left-0 top-0 bottom-0 w-[2px] bg-brand rounded-r-full" />
                 )}
-                <span
+                <HugeiconsIcon
+                  icon={item.icon}
+                  size={16}
+                  color="currentColor"
+                  strokeWidth={active === item.id ? 2 : 1.5}
                   className={cn(
                     "shrink-0",
                     active === item.id ? "text-brand" : "",
                   )}
-                >
-                  {item.icon}
-                </span>
+                />
                 {item.label}
               </button>
             ))}

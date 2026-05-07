@@ -4,6 +4,11 @@ import { Button } from "@/components/ui/Button";
 import { Input } from "@/components/ui/Input";
 import { Badge } from "@/components/ui/Badge";
 import { getClient, type TxResult } from "@/lib/client";
+import { HugeiconsIcon } from "@hugeicons/react";
+import {
+  CheckmarkCircle01Icon,
+  AlertCircleIcon,
+} from "@hugeicons/core-free-icons";
 
 type State = "idle" | "loading" | "success" | "error";
 
@@ -69,15 +74,12 @@ export function TransactionPanel() {
           <div className="flex flex-col gap-4">
             <div className="flex items-center gap-3">
               <div className="w-9 h-9 rounded-full bg-[rgba(34,197,94,0.1)] flex items-center justify-center shrink-0">
-                <svg width="14" height="14" viewBox="0 0 12 12" fill="none">
-                  <path
-                    d="M2 6L5 9L10 3"
-                    stroke="#22c55e"
-                    strokeWidth="1.5"
-                    strokeLinecap="round"
-                    strokeLinejoin="round"
-                  />
-                </svg>
+                <HugeiconsIcon
+                  icon={CheckmarkCircle01Icon}
+                  size={18}
+                  color="#22c55e"
+                  strokeWidth={1.5}
+                />
               </div>
               <div>
                 <p className="text-[14px] font-semibold text-ink">
@@ -103,21 +105,12 @@ export function TransactionPanel() {
         ) : state === "error" ? (
           <div className="flex items-start gap-3">
             <div className="w-9 h-9 rounded-full bg-[rgba(239,68,68,0.1)] flex items-center justify-center shrink-0 mt-0.5">
-              <svg width="14" height="14" viewBox="0 0 12 12" fill="none">
-                <path
-                  d="M6 4V6.5M6 8.5H6.01"
-                  stroke="#ef4444"
-                  strokeWidth="1.5"
-                  strokeLinecap="round"
-                />
-                <circle
-                  cx="6"
-                  cy="6"
-                  r="4.5"
-                  stroke="#ef4444"
-                  strokeWidth="1.2"
-                />
-              </svg>
+              <HugeiconsIcon
+                icon={AlertCircleIcon}
+                size={18}
+                color="#ef4444"
+                strokeWidth={1.5}
+              />
             </div>
             <div>
               <p className="text-[14px] font-semibold text-ink">

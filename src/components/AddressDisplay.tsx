@@ -1,6 +1,8 @@
 import { useState } from "react";
 import { cn } from "@/lib/utils";
 import { truncateAddress } from "@/lib/utils";
+import { HugeiconsIcon } from "@hugeicons/react";
+import { Copy01Icon, Tick01Icon } from "@hugeicons/core-free-icons";
 
 interface AddressDisplayProps {
   address: string;
@@ -27,7 +29,7 @@ export function AddressDisplay({
       setCopied(true);
       setTimeout(() => setCopied(false), 2000);
     } catch {
-      // fallback: select text
+      /* fallback */
     }
   }
 
@@ -61,35 +63,12 @@ export function AddressDisplay({
           )}
           title={copied ? "Copied!" : "Copy address"}
         >
-          {copied ? (
-            <svg width="12" height="12" viewBox="0 0 12 12" fill="none">
-              <path
-                d="M2 6L5 9L10 3"
-                stroke="currentColor"
-                strokeWidth="1.5"
-                strokeLinecap="round"
-                strokeLinejoin="round"
-              />
-            </svg>
-          ) : (
-            <svg width="12" height="12" viewBox="0 0 12 12" fill="none">
-              <rect
-                x="4"
-                y="4"
-                width="7"
-                height="7"
-                rx="1.5"
-                stroke="currentColor"
-                strokeWidth="1.2"
-              />
-              <path
-                d="M3 8H2.5C1.67 8 1 7.33 1 6.5V2.5C1 1.67 1.67 1 2.5 1H6.5C7.33 1 8 1.67 8 2.5V3"
-                stroke="currentColor"
-                strokeWidth="1.2"
-                strokeLinecap="round"
-              />
-            </svg>
-          )}
+          <HugeiconsIcon
+            icon={copied ? Tick01Icon : Copy01Icon}
+            size={12}
+            color="currentColor"
+            strokeWidth={2}
+          />
         </button>
       </div>
     </div>

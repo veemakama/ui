@@ -1,6 +1,8 @@
 import { WalletConnectButton } from "@/components/WalletConnectButton";
 import { NetworkSwitcher } from "@/components/NetworkSwitcher";
 import { useSorokit } from "@/context/SorokitProvider";
+import { HugeiconsIcon } from "@hugeicons/react";
+import { Menu01Icon, Cancel01Icon } from "@hugeicons/core-free-icons";
 import type { NavSection } from "@/components/Sidebar";
 
 const LABELS: Record<NavSection, { title: string; sub: string }> = {
@@ -30,14 +32,12 @@ export function TopBar({
             onClick={clearError}
             className="text-red opacity-50 hover:opacity-100 shrink-0 transition-opacity"
           >
-            <svg width="12" height="12" viewBox="0 0 12 12" fill="none">
-              <path
-                d="M2 2L10 10M10 2L2 10"
-                stroke="currentColor"
-                strokeWidth="1.5"
-                strokeLinecap="round"
-              />
-            </svg>
+            <HugeiconsIcon
+              icon={Cancel01Icon}
+              size={12}
+              color="currentColor"
+              strokeWidth={2}
+            />
           </button>
         </div>
       )}
@@ -45,12 +45,15 @@ export function TopBar({
         <div className="flex items-center gap-3">
           <button
             onClick={onMenuToggle}
-            className="lg:hidden flex flex-col justify-center gap-[5px] w-8 h-8 rounded-md hover:bg-surface-2 transition-colors"
+            className="lg:hidden flex items-center justify-center w-8 h-8 rounded-md hover:bg-surface-2 transition-colors text-ink-2"
             aria-label="Open menu"
           >
-            <span className="w-4 h-px bg-ink-2 block mx-auto" />
-            <span className="w-4 h-px bg-ink-2 block mx-auto" />
-            <span className="w-4 h-px bg-ink-2 block mx-auto" />
+            <HugeiconsIcon
+              icon={Menu01Icon}
+              size={18}
+              color="currentColor"
+              strokeWidth={1.5}
+            />
           </button>
           <div>
             <h1 className="text-[15px] font-semibold text-ink leading-none">

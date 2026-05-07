@@ -1,5 +1,7 @@
 import { useSorokit } from "@/context/SorokitProvider";
 import { Button } from "@/components/ui/Button";
+import { HugeiconsIcon } from "@hugeicons/react";
+import { Cancel01Icon } from "@hugeicons/core-free-icons";
 
 export function ConnectScreen() {
   const { connectWallet, isConnecting, error, clearError } = useSorokit();
@@ -9,7 +11,7 @@ export function ConnectScreen() {
       <div className="w-full max-w-[400px] flex flex-col items-center gap-8">
         {/* Logo */}
         <div className="flex flex-col items-center gap-4">
-          <div className="w-14 h-14 rounded-2xl bg-brand flex items-center justify-center shadow-[0_0_40px_rgba(86,69,212,0.3)]">
+          <div className="w-14 h-14 rounded-2xl bg-brand flex items-center justify-center ">
             <svg width="28" height="28" viewBox="0 0 24 24" fill="none">
               <path
                 d="M5 12C5 8.13 8.13 5 12 5C15.87 5 19 8.13 19 12C19 15.87 15.87 19 12 19"
@@ -37,7 +39,7 @@ export function ConnectScreen() {
         </div>
 
         {/* Card */}
-        <div className="w-full rounded-2xl border border-line bg-surface overflow-hidden shadow-[0_24px_64px_rgba(0,0,0,0.6)]">
+        <div className="w-full rounded-2xl border border-line bg-surface overflow-hidden shadow-[0_24px_64px_rgba(0,0,0,0.2)]">
           <div className="px-8 pt-8 pb-6 border-b border-line">
             <h2 className="text-[18px] font-semibold text-ink tracking-tight">
               Connect Wallet
@@ -55,14 +57,12 @@ export function ConnectScreen() {
                   onClick={clearError}
                   className="text-red opacity-50 hover:opacity-100 shrink-0 mt-0.5 transition-opacity"
                 >
-                  <svg width="12" height="12" viewBox="0 0 12 12" fill="none">
-                    <path
-                      d="M2 2L10 10M10 2L2 10"
-                      stroke="currentColor"
-                      strokeWidth="1.5"
-                      strokeLinecap="round"
-                    />
-                  </svg>
+                  <HugeiconsIcon
+                    icon={Cancel01Icon}
+                    size={12}
+                    color="currentColor"
+                    strokeWidth={2}
+                  />
                 </button>
               </div>
             )}

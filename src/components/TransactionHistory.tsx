@@ -5,6 +5,13 @@ import { Badge } from "@/components/ui/Badge";
 import { Button } from "@/components/ui/Button";
 import { truncateAddress } from "@/lib/utils";
 import type { Transaction } from "@/lib/client";
+import { HugeiconsIcon } from "@hugeicons/react";
+import {
+  CheckmarkCircle01Icon,
+  Cancel01Icon,
+  ArrowLeft01Icon,
+  ArrowRight01Icon,
+} from "@hugeicons/core-free-icons";
 
 const PAGE_SIZE = 10;
 
@@ -26,26 +33,12 @@ function TxRow({ tx }: { tx: Transaction }) {
         <div
           className={`w-8 h-8 rounded-full flex items-center justify-center shrink-0 ${tx.successful ? "bg-[rgba(34,197,94,0.1)]" : "bg-[rgba(239,68,68,0.1)]"}`}
         >
-          {tx.successful ? (
-            <svg width="12" height="12" viewBox="0 0 12 12" fill="none">
-              <path
-                d="M2 6L5 9L10 3"
-                stroke="#22c55e"
-                strokeWidth="1.5"
-                strokeLinecap="round"
-                strokeLinejoin="round"
-              />
-            </svg>
-          ) : (
-            <svg width="12" height="12" viewBox="0 0 12 12" fill="none">
-              <path
-                d="M3 3L9 9M9 3L3 9"
-                stroke="#ef4444"
-                strokeWidth="1.5"
-                strokeLinecap="round"
-              />
-            </svg>
-          )}
+          <HugeiconsIcon
+            icon={tx.successful ? CheckmarkCircle01Icon : Cancel01Icon}
+            size={14}
+            color={tx.successful ? "#22c55e" : "#ef4444"}
+            strokeWidth={1.5}
+          />
         </div>
 
         <div className="flex flex-col gap-0.5 min-w-0">
@@ -158,7 +151,13 @@ export function TransactionHistory() {
                   disabled={page <= 1}
                   onClick={() => setPage((p) => p - 1)}
                 >
-                  ← Prev
+                  <HugeiconsIcon
+                    icon={ArrowLeft01Icon}
+                    size={12}
+                    color="currentColor"
+                    strokeWidth={2}
+                  />
+                  Prev
                 </Button>
                 <Button
                   variant="secondary"
@@ -166,7 +165,13 @@ export function TransactionHistory() {
                   disabled={page >= totalPages}
                   onClick={() => setPage((p) => p + 1)}
                 >
-                  Next →
+                  Next
+                  <HugeiconsIcon
+                    icon={ArrowRight01Icon}
+                    size={12}
+                    color="currentColor"
+                    strokeWidth={2}
+                  />
                 </Button>
               </div>
             </div>

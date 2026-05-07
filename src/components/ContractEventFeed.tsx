@@ -3,6 +3,8 @@ import { getClient } from "@/lib/client";
 import { Badge } from "@/components/ui/Badge";
 import { truncateAddress } from "@/lib/utils";
 import type { ContractEvent } from "@/lib/client";
+import { HugeiconsIcon } from "@hugeicons/react";
+import { Refresh01Icon } from "@hugeicons/core-free-icons";
 
 const EVENT_TYPE_VARIANT: Record<
   string,
@@ -139,27 +141,13 @@ export function ContractEventFeed({
             disabled={loading}
             className="p-1.5 rounded-lg hover:bg-surface-2 text-ink-3 hover:text-ink-2 transition-colors disabled:opacity-40"
           >
-            <svg
-              width="13"
-              height="13"
-              viewBox="0 0 13 13"
-              fill="none"
+            <HugeiconsIcon
+              icon={Refresh01Icon}
+              size={14}
+              color="currentColor"
+              strokeWidth={1.5}
               className={loading ? "animate-spin" : ""}
-            >
-              <path
-                d="M11.5 6.5C11.5 9.26 9.26 11.5 6.5 11.5C3.74 11.5 1.5 9.26 1.5 6.5C1.5 3.74 3.74 1.5 6.5 1.5C8.1 1.5 9.52 2.24 10.46 3.38"
-                stroke="currentColor"
-                strokeWidth="1.3"
-                strokeLinecap="round"
-              />
-              <path
-                d="M10.5 1.5V4H8"
-                stroke="currentColor"
-                strokeWidth="1.3"
-                strokeLinecap="round"
-                strokeLinejoin="round"
-              />
-            </svg>
+            />
           </button>
         </div>
       </div>

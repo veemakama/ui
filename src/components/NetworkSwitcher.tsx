@@ -1,6 +1,8 @@
 import * as DropdownMenu from "@radix-ui/react-dropdown-menu";
 import { useSorokit } from "@/context/SorokitProvider";
 import { cn } from "@/lib/utils";
+import { HugeiconsIcon } from "@hugeicons/react";
+import { ArrowDown01Icon, Tick01Icon } from "@hugeicons/core-free-icons";
 import type { NetworkName } from "@/lib/client";
 
 const NETWORKS: { name: NetworkName; label: string; dot: string }[] = [
@@ -22,21 +24,13 @@ export function NetworkSwitcher() {
             className={cn("w-1.5 h-1.5 rounded-full shrink-0", current.dot)}
           />
           {current.label}
-          <svg
-            width="8"
-            height="8"
-            viewBox="0 0 8 8"
-            fill="none"
+          <HugeiconsIcon
+            icon={ArrowDown01Icon}
+            size={10}
+            color="currentColor"
+            strokeWidth={2}
             className="opacity-40 ml-0.5"
-          >
-            <path
-              d="M1.5 3L4 5.5L6.5 3"
-              stroke="currentColor"
-              strokeWidth="1.5"
-              strokeLinecap="round"
-              strokeLinejoin="round"
-            />
-          </svg>
+          />
         </button>
       </DropdownMenu.Trigger>
 
@@ -62,21 +56,13 @@ export function NetworkSwitcher() {
               />
               {net.label}
               {network?.name === net.name && (
-                <svg
+                <HugeiconsIcon
+                  icon={Tick01Icon}
+                  size={12}
+                  color="currentColor"
+                  strokeWidth={2}
                   className="ml-auto"
-                  width="10"
-                  height="10"
-                  viewBox="0 0 10 10"
-                  fill="none"
-                >
-                  <path
-                    d="M2 5L4.5 7.5L8.5 2.5"
-                    stroke="currentColor"
-                    strokeWidth="1.5"
-                    strokeLinecap="round"
-                    strokeLinejoin="round"
-                  />
-                </svg>
+                />
               )}
             </DropdownMenu.Item>
           ))}
