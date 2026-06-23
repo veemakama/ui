@@ -1,4 +1,4 @@
-import { render, screen, fireEvent, waitFor } from "@testing-library/react";
+import { render, screen, fireEvent } from "@testing-library/react";
 import { describe, it, expect, vi, beforeEach } from "vitest";
 import { ClaimableBalanceCard } from "./ClaimableBalanceCard";
 import { getClient } from "@/lib/client";
@@ -50,7 +50,7 @@ describe("ClaimableBalanceCard", () => {
     render(<ClaimableBalanceCard />);
 
     // Wait for the balance to load
-    expect(await screen.findByText("10")).toBeInTheDocument();
+    expect(await screen.findByText("10.00")).toBeInTheDocument();
 
     const claimButton = screen.getByRole("button", { name: "Claim" });
     
