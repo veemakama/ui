@@ -63,4 +63,47 @@ describe("SorobanPanel", () => {
     const errorText = await screen.findByText(/Invalid JSON in arguments/i);
     expect(errorText).toBeInTheDocument();
   });
+
+  // ── Non-array JSON args (#118) ────────────────────────────────────────────
+  // Valid JSON that is not an array (e.g. `{}` or `42`) must be rejected before
+  // it is forwarded to invokeContract, which expects an argument array.
+  async function invokeWithArgs(argsValue: string) {
+    const { rerender } = render(
+      <SorobanPanel contractId="" onContractIdChange={() => {}} />,
+    );
+    fireEvent.change(screen.getByPlaceholderText(/c\.\.\./i), {
+      target: { value: "C123" },
+    });
+    fireEvent.change(screen.getByPlaceholderText(/transfer/i), {
+      target: { value: "mint" },
+    });
+    fireEvent.change(screen.getByPlaceholderText(/\[.*\]/i), {
+      target: { value: argsValue },
+    });
+    rerender(<SorobanPanel contractId="C123" onContractIdChange={() => {}} />);
+    fireEvent.click(screen.getByRole("button", { name: /invoke/i }));
+  }
+
+  it("rejects a JSON object (non-array) with a 'must be a JSON array' error", async () => {
+    await invokeWithArgs("{}");
+    expect(
+      await screen.findByText(/Arguments must be a JSON array/i),
+    ).toBeInTheDocument();
+  });
+
+  it("rejects a JSON number (non-array) with a 'must be a JSON array' error", async () => {
+    await invokeWithArgs("42");
+    expect(
+      await screen.findByText(/Arguments must be a JSON array/i),
+    ).toBeInTheDocument();
+  });
+
+  it("accepts a valid JSON array and reaches the success state", async () => {
+    await invokeWithArgs('["arg1", 42]');
+    // No validation error; the mocked invokeContract resolves successfully.
+    expect(
+      screen.queryByText(/Arguments must be a JSON array/i),
+    ).not.toBeInTheDocument();
+    expect(await screen.findByText(/success/i)).toBeInTheDocument();
+  });
 });
