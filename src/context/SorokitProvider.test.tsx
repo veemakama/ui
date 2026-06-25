@@ -1,5 +1,6 @@
 import { render, screen, act, fireEvent, waitFor } from "@testing-library/react";
 import { describe, it, expect, vi, beforeEach } from "vitest";
+import { useState, useRef } from "react";
 import { SorokitProvider } from "./SorokitProvider";
 import { useSorokit } from "./useSorokit";
 import { getClient } from "@/lib/client";
@@ -15,6 +16,23 @@ const TestComponent = () => {
       <button onClick={() => connectWallet()}>Connect</button>
       <button onClick={() => disconnectWallet()}>Disconnect</button>
       <button onClick={() => switchNetwork("testnet")}>Switch</button>
+    </div>
+  );
+};
+
+const MemoTestComponent = () => {
+  const value = useSorokit();
+  const prevValueRef = useRef<any>(null);
+  const renderCountRef = useRef(0);
+  
+  renderCountRef.current += 1;
+  const isRefEqual = prevValueRef.current === value;
+  prevValueRef.current = value;
+  
+  return (
+    <div>
+      <div data-testid="render-count">{renderCountRef.current}</div>
+      <div data-testid="ref-equal">{isRefEqual ? "true" : "false"}</div>
     </div>
   );
 };
@@ -98,5 +116,31 @@ describe("SorokitProvider", () => {
     });
 
     expect(mockClient.network.switchNetwork).toHaveBeenCalledWith("testnet");
+  });
+
+  it("memoizes the context value across parent re-renders", async () => {
+    const Wrapper = ({ client }: { client: any }) => {
+      const [count, setCount] = useState(0);
+      return (
+        <div>
+          <button onClick={() => setCount((c) => c + 1)}>Trigger Parent Render</button>
+          <SorokitProvider client={client}>
+            <MemoTestComponent />
+          </SorokitProvider>
+        </div>
+      );
+    };
+
+    render(<Wrapper client={mockClient} />);
+
+    expect(screen.getByTestId("render-count")).toHaveTextContent("1");
+    expect(screen.getByTestId("ref-equal")).toHaveTextContent("false");
+
+    await act(async () => {
+      fireEvent.click(screen.getByText("Trigger Parent Render"));
+    });
+
+    expect(screen.getByTestId("render-count")).toHaveTextContent("2");
+    expect(screen.getByTestId("ref-equal")).toHaveTextContent("true");
   });
 });
