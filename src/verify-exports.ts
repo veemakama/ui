@@ -6,7 +6,9 @@ import {
   AddressDisplay,
   AssetPill,
   ContractEventFeed,
-  // Types
+} from "./components/index";
+
+import type {
   AccountData,
   Balance,
   Transaction,
