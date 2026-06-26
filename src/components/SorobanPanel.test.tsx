@@ -8,6 +8,8 @@ vi.mock("@/context/useSorokit", () => ({
   useSorokit: vi.fn(),
 }));
 
+const mockInvokeContract = vi.fn();
+
 // Mock the getClient from lib/client
 vi.mock("../lib/client", () => ({
   getClient: () => ({
@@ -50,7 +52,6 @@ describe("SorobanPanel", () => {
     );
     
     // Fill out contract ID and method to enable the button
-    const contractInput = screen.getByPlaceholderText(/c\.\.\./i);
     const methodInput = screen.getByPlaceholderText(/transfer/i);
     const argsInput = screen.getByPlaceholderText(/\[.*\]/i);
     const invokeBtn = screen.getByRole("button", { name: /invoke/i });
