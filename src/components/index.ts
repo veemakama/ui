@@ -1,3 +1,5 @@
+import "../styles.css";
+
 // UI primitives
 export { Button } from "./ui/Button";
 export {
