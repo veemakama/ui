@@ -25,6 +25,7 @@ export function TopBar({
           <p className="text-[12px] text-red">{error}</p>
           <button
             onClick={clearError}
+            aria-label="Dismiss error"
             className="text-red opacity-50 hover:opacity-100 shrink-0 transition-opacity"
           >
             <HugeiconsIcon
