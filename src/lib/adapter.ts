@@ -11,6 +11,21 @@ import {
   type NetworkInfo,
   type NetworkName,
 } from "./client";
+interface SorobanClient {
+  invokeContract(params: { contractId: string; method: string; params: any[] }): Promise<any>;
+  getEvents(params: { contractId: string; limit: number }): Promise<any[]>;
+}
+
+export interface ClientAdapterConfig {
+  walletAdapter?: any; // Freighter, xBull, Albedo
+  network?: 'testnet' | 'public';
+}
+
+export interface AdapterResponse<T> {
+  data: T | null;
+  error: string | null;
+  status: 'success' | 'error' | 'pending';
+}
 
 /**
  * Create an adapter that wraps the sorokit-core client to match the expected interface.
